@@ -1,7 +1,7 @@
 " File              : .vimrc
 " Author            : Rustam Khafizov <super.rustamm@gmail.com>
 " Date              : 31.03.2021 20:37
-" Last Modified Date: 01.04.2021 16:44
+" Last Modified Date: 03.04.2021 16:23
 " Last Modified By  : Rustam Khafizov <super.rustamm@gmail.com>
 
 " Use VIM settings instead of VI, must be first option
@@ -21,6 +21,11 @@ vnoremap <leader>" <esc>i"<esc>`<i"<esc>v`>
 nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
 vnoremap <leader>' <esc>i'<esc>`<i'<esc>v`>
 inoremap {<CR> {<CR>}<C-o>O
+nnoremap <leader>c :pclose<cr>
+nnoremap J }
+nnoremap K {
+vnoremap J }
+vnoremap K {
 
 " Exit from insert to normal mode relearining
 " inoremap <esc> <nop>
@@ -35,6 +40,8 @@ set undodir=~/.vim/undodir
 set undofile
 set undolevels=1000
 set undoreload=10000
+
+set completeopt-=preview
 
 set history=1000
 filetype on
@@ -105,6 +112,9 @@ Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'alpertuna/vim-header'
 Plugin 'pboettch/vim-cmake-syntax'
 Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-fugitive'
+Plugin 'vhdirk/vim-cmake'
+Plugin 'cpiger/NeoDebug'
 
 call vundle#end()
 filetype plugin indent on
@@ -124,3 +134,15 @@ let &t_ti.="\e[1 q"
 let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
+
+let g:neodbg_keymap_toggle_breakpoint  = '<F9>'         " toggle breakpoint on current line
+let g:neodbg_keymap_next               = '<F10>'        " next
+let g:neodbg_keymap_run_to_cursor      = '<C-F10>'      " run to cursor (tb and c)
+let g:neodbg_keymap_jump               = '<C-S-F10>'    " set next statement (tb and jump)
+let g:neodbg_keymap_step_into          = '<F11>'        " step into
+let g:neodbg_keymap_step_out           = '<S-F11>'      " setp out
+let g:neodbg_keymap_continue           = '<F5>'         " run or continue
+let g:neodbg_keymap_print_variable     = '<C-P>'        " view variable under the cursor
+let g:neodbg_keymap_stop_debugging     = '<S-F5>'       " stop debugging (kill)
+let g:neodbg_keymap_toggle_console_win = '<F6>'         " toggle console window
+let g:neodbg_keymap_terminate_debugger = '<C-C>'        " terminate debugger
