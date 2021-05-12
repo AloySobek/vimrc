@@ -1,7 +1,7 @@
 " File              : .vimrc
 " Author            : Rustam Khafizov <super.rustamm@gmail.com>
 " Date              : 31.03.2021 20:37
-" Last Modified Date: 15.04.2021 00:19
+" Last Modified Date: 06.05.2021 13:45
 " Last Modified By  : Rustam Khafizov <super.rustamm@gmail.com>
 
 " Use VIM settings instead of VI, must be first option
@@ -18,6 +18,7 @@ nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
 vnoremap <leader>" <esc>i"<esc>`<i"<esc>v`>
 nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
 vnoremap <leader>' <esc>i'<esc>`<i'<esc>v`>
+nnoremap <leader>q :q<cr>
 inoremap {<cr> {<cr>}<C-o>O
 nnoremap <leader>c :pclose<cr>
 nnoremap J }
@@ -27,7 +28,16 @@ vnoremap K {
 nnoremap <leader>o :Goyo<cr>
 nnoremap H b
 nnoremap L w
+vnoremap H b
+vnoremap L w
 inoremap kj <esc>
+inoremap <silent><expr> <leader>s coc#refresh()
+nnoremap <leader>f :YcmCompleter FixIt<cr>
+nnoremap <leader>t :terminal<cr><C-w>k:resize +15<cr><C-w>j
+nnoremap <leader>m :make<cr><cr><cr>
+
+
+" nnoremap <C-S-n> :FZF<cr>
 
 iabbrev adn and
 iabbrev waht what
@@ -86,6 +96,7 @@ set tw=500
 set ai "Auto indent
 set si "Smart indent
 set nowrap "Wrap lines
+set splitbelow
 
 filetype off
 
@@ -96,6 +107,8 @@ Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'preservim/nerdtree'
 Plug 'tpope/vim-commentary'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'joshdick/onedark.vim'
 Plug 'alpertuna/vim-header'
@@ -104,6 +117,7 @@ Plug 'vhdirk/vim-cmake'
 Plug 'junegunn/goyo.vim'
 Plug 'mg979/vim-visual-multi'
 Plug 'hashivim/vim-terraform'
+Plug 'dart-lang/dart-vim-plugin'
 
 call plug#end()
 
