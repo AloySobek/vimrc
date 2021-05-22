@@ -1,7 +1,7 @@
 " File              : .vimrc
 " Author            : Rustam Khafizov <super.rustamm@gmail.com>
 " Date              : 31.03.2021 20:37
-" Last Modified Date: 06.05.2021 13:45
+" Last Modified Date: 22.05.2021 20:23
 " Last Modified By  : Rustam Khafizov <super.rustamm@gmail.com>
 
 " Use VIM settings instead of VI, must be first option
@@ -35,7 +35,6 @@ inoremap <silent><expr> <leader>s coc#refresh()
 nnoremap <leader>f :YcmCompleter FixIt<cr>
 nnoremap <leader>t :terminal<cr><C-w>k:resize +15<cr><C-w>j
 nnoremap <leader>m :make<cr><cr><cr>
-
 
 " nnoremap <C-S-n> :FZF<cr>
 
@@ -97,12 +96,13 @@ set ai "Auto indent
 set si "Smart indent
 set nowrap "Wrap lines
 set splitbelow
+set mouse=a
 
 filetype off
 
 call plug#begin('~/.vim/plugged')
 
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clangd-completer' }
+" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clangd-completer' }
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'preservim/nerdtree'
@@ -127,6 +127,7 @@ set background=dark
 set termguicolors
 colorscheme onedark
 
+let g:header_auto_add_header = 0
 let g:header_field_author = 'Rustam Khafizov'
 let g:header_field_author_email = 'super.rustamm@gmail.com'
 let g:header_field_timestamp_format = '%d.%m.%Y %H:%M'
@@ -139,3 +140,42 @@ let &t_ti.="\e[1 q"
 let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
+
+" Mapping to use pop-up scrolling
+nnoremap <expr> <c-j> ScrollPopUp(1) ? '<esc>' : '<c-d>'
+nnoremap <expr> <c-k> ScrollPopUp(0) ? '<esc>' : '<c-u>'
+
+" This function allows you to scroll CoC pop-up menus
+function ScrollPopUp(down)
+    let winid = FindCursorPopUp()
+    if winid == 0
+        return 0
+    endif
+
+    let pp = popup_getpos(winid)
+    call popup_setoptions( winid,
+        \ {'firstline' : pp.firstline + ( a:down ? 1 : -1 ) } )
+
+    return 1
+endfunction
+
+function FindCursorPopUp()                                                                                                                                                                                            
+    let radius = get(a:000, 0, 2)
+    let srow = screenrow()
+    let scol = screencol()
+
+    " it's necessary to test entire rect, as some popup might be quite small
+    for r in range(srow - radius, srow + radius)
+        for c in range(scol - radius, scol + radius)
+            let winid = popup_locate(r, c)
+            if winid != 0
+                return winid
+            endif
+        endfor
+    endfor
+    
+    return 0
+endfunction
+
+" Due to implementation - disable annoying bell while scrolling
+set belloff+=esc
