@@ -1,69 +1,115 @@
 " File              : .vimrc
 " Author            : Rustam Khafizov <super.rustamm@gmail.com>
 " Date              : 31.03.2021 20:37
-" Last Modified Date: 22.05.2021 20:23
+" Last Modified Date: 23.05.2021 00:24
 " Last Modified By  : Rustam Khafizov <super.rustamm@gmail.com>
 
 " Use VIM settings instead of VI, must be first option
 set nocompatible
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                MAP BLOCK                                    "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 let mapleader = ","
 
+" Delete entire word
 nnoremap <leader>d viwd
+
+" Make whole word in UPPERCASE
 nnoremap <leader>u viwU
-nnoremap <leader>w :w!<cr>
+
+" Quick vimrc edit from everywhere
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
+
+" Quick quotes wrapping
 nnoremap <leader>" viw<esc>a"<esc>bi"<esc>lel
 vnoremap <leader>" <esc>i"<esc>`<i"<esc>v`>
 nnoremap <leader>' viw<esc>a'<esc>bi'<esc>lel
 vnoremap <leader>' <esc>i'<esc>`<i'<esc>v`>
-nnoremap <leader>q :q<cr>
+
+" Auto brackets when enter was pressed
 inoremap {<cr> {<cr>}<C-o>O
-nnoremap <leader>c :pclose<cr>
+
+" Move faster with uppercase arrows
 nnoremap J }
 nnoremap K {
 vnoremap J }
 vnoremap K {
-nnoremap <leader>o :Goyo<cr>
 nnoremap H b
 nnoremap L w
 vnoremap H b
 vnoremap L w
-inoremap kj <esc>
-inoremap <silent><expr> <leader>s coc#refresh()
-nnoremap <leader>f :YcmCompleter FixIt<cr>
-nnoremap <leader>t :terminal<cr><C-w>k:resize +15<cr><C-w>j
-nnoremap <leader>m :make<cr><cr><cr>
 
-" nnoremap <C-S-n> :FZF<cr>
+" SUPER COOL SHORTCUT, instead of <esc> use kj
+inoremap kj <esc>
+
+" <c-space> coc.nvim force to show autocomplete
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" YouCompleteMe quick fix
+nnoremap <leader>f :YcmCompleter FixIt<cr>
+
+" VSCode like terminal
+nnoremap <leader>t :terminal<cr><C-w>k:resize +15<cr><C-w>j
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                               ABBREV BLOCK                                  "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 iabbrev adn and
 iabbrev waht what
 iabbrev tehn then
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                SET BLOCK                                    "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Undo dir settings
 set undodir=~/.vim/undodir
 set undofile
 set undolevels=1000
 set undoreload=10000
 
+" Disable annoying preview windows
 set completeopt-=preview
 
+" Command line history length
 set history=1000
+
+" Detect file type load indent for this file and necessary plugins
 filetype on
 filetype plugin on
 filetype indent on
+
 syntax enable 
+
+" Column line(right border for your code)
 set colorcolumn=80
+
+" Auto read if file changed outside
 set autoread
+
+" Enable number line on the left
 set number
+
+" Folding settings
 set foldmethod=indent
 set foldlevel=99
+
+" vim command line <tab> autocomplete
 set wildmenu
 set wildignore=*.o,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+
+" Show number of line and columnt in right bottom corner
 set ruler
+
+"Height of vim command line
 set cmdheight=1
+
 set hid
+
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 set ignorecase
@@ -102,22 +148,24 @@ filetype off
 
 call plug#begin('~/.vim/plugged')
 
-" Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clangd-completer' }
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+" C/C++ plugins
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clangd-completer' }
 Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'pboettch/vim-cmake-syntax'
+Plug 'vhdirk/vim-cmake'
+
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'preservim/nerdtree'
 Plug 'tpope/vim-commentary'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'joshdick/onedark.vim'
 Plug 'alpertuna/vim-header'
-Plug 'pboettch/vim-cmake-syntax'
-Plug 'vhdirk/vim-cmake'
 Plug 'junegunn/goyo.vim'
 Plug 'mg979/vim-visual-multi'
 Plug 'hashivim/vim-terraform'
 Plug 'dart-lang/dart-vim-plugin'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
 call plug#end()
 
@@ -126,6 +174,9 @@ filetype plugin indent on
 set background=dark
 set termguicolors
 colorscheme onedark
+
+" NERDTree always show hidden files
+let NERDTreeShowHidden=1
 
 let g:header_auto_add_header = 0
 let g:header_field_author = 'Rustam Khafizov'
