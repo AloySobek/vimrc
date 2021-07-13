@@ -1,0 +1,36 @@
+{
+    "languageserver":
+    {
+        "terraform":
+        {
+            "command": "terraform-ls",
+            "args": ["serve"],
+            "filetypes": [
+                "terraform",
+                "tf"
+            ],
+            "initializationOptions": {},
+            "settings": {}
+        },
+        "haskell":
+        {
+            "command": "haskell-language-server-wrapper",
+            "args": [
+                "--lsp"
+            ],
+            "rootPatterns": [
+                ".stack.yaml",
+                ".hie-bios",
+                "BUILD.bazel",
+                "cabal.config",
+                "package.yaml"
+            ],
+            "filetypes": [
+                "hs",
+                "lhs",
+                "haskell"
+            ]
+        }
+    },
+    "python.jediEnabled": false
+}
