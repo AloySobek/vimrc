@@ -154,7 +154,6 @@ Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'pboettch/vim-cmake-syntax'
 Plug 'vhdirk/vim-cmake'
 
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'preservim/nerdtree'
 Plug 'tpope/vim-commentary'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
